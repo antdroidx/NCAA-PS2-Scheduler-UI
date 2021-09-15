@@ -291,3 +291,7 @@ tr.game-row:not(.game-expanded-row):active {
   margin-top: 10px;
   justify-content: center;
 }
+
+.us-map {
+  width: 300px
+}

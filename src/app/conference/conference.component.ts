@@ -12,6 +12,17 @@ import { School } from '../school';
 })
 export class ConferenceComponent implements OnInit {
 
+  // selectedState: any = [
+  //   {'code': 'ND', 'users': 324, 'org type' :'Service Provider'}, 
+  //   {'code': 'WA', 'users': 454, 'org type' :'Manufacturer'}, 
+  //   {'code':'AZ', 'users': 234, 'org type' :'Service Provider'}, 
+  //   {'code' : 'AK', 'users': 544, 'org type' :'Manufacturer'},
+  //   {'code' : 'CT', 'users': 544, 'org type' :'Manufacturer'},
+  //   {'code' : 'DC', 'users': 544, 'org type' :'Manufacturer'},
+  // ];
+
+  selectedStates?: Array<string>;
+
   @Input() conference!: Conference;
   @Output() updated = new EventEmitter<boolean>();
 
@@ -26,7 +37,15 @@ export class ConferenceComponent implements OnInit {
     this.loadSchools();
   }
 
+  setStates(schools: School[]): void {
+    schools.forEach(school => {
+      //add check if school already exists?
+      this.selectedStates!.push(school.state);
+    });
+  }
+
   loadSchools(): void {
+    this.selectedStates = [];
     if (this.conference.divisions !== null) {
       this.getSchoolsByDivision();
     }
@@ -39,6 +58,7 @@ export class ConferenceComponent implements OnInit {
     this.scheduleService.getSchoolsByConference(this.conference.name).subscribe((data: School[]) => {
       console.log(data);
       this.confSchools = data;
+      this.setStates(this.confSchools);
     });
   }
 
@@ -46,10 +66,12 @@ export class ConferenceComponent implements OnInit {
     this.conferenceService.getSchoolsByDivision(this.conference.name, this.conference.divisions[0]).subscribe((data: School[]) => {
       console.log(data);
       this.divSchools[0] = data;
+      this.setStates(this.divSchools[0]);
     });
     this.conferenceService.getSchoolsByDivision(this.conference.name, this.conference.divisions[1]).subscribe((data: School[]) => {
       console.log(data);
       this.divSchools[1] = data;
+      this.setStates(this.divSchools[1]);
     });
   }
 

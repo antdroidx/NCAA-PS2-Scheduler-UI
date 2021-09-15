@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -28,6 +28,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditConferencesComponent } from './edit-conferences/edit-conferences.component';
 import { ConferenceComponent } from './conference/conference.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { UsMapComponent } from './us-map/us-map.component';
+import { MapStates } from './us-map/map.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AddGameComponent,
     DashboardComponent,
     EditConferencesComponent,
-    ConferenceComponent
+    ConferenceComponent,
+    UsMapComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatTooltipModule,
     DragDropModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  exports: [UsMapComponent],
+  providers: [MapStates],
+  bootstrap: [AppComponent],
+  schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule { }

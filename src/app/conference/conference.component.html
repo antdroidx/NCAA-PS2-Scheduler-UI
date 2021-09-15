@@ -14,6 +14,8 @@
 
         <div class="conference-schools">
 
+            <!-- <app-us-map *ngIf="panelOpenState && this.selectedStates" class="us-map" [states]='this.selectedStates' [colors]="{fill:'#518a38', unfill: '#30973e21'}"></app-us-map> -->
+
             <div class="school-card-container" *ngFor="let div of conference.divisions; let i = index">
                 <div class="division-schools-container">
                     {{div}}
